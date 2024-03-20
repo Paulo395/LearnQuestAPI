@@ -62,5 +62,10 @@ namespace LearnQuestAPI.Repository
         {
             return await _dbContext.Usuarios.ToListAsync();
         }
+
+        public async Task<Usuario> BuscarPorEmailSenha(string email, string senha)
+        {
+            return await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
+        }
     }
 }

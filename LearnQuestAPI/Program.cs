@@ -17,6 +17,7 @@ namespace LearnQuestAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors();
 
             // Informa qual banco será utilizado e qual string de conexão buscar 
             builder.Services.AddEntityFrameworkSqlServer()
@@ -37,6 +38,14 @@ namespace LearnQuestAPI
             }
 
             app.UseHttpsRedirection();
+
+            //Configuração CORS
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+            });
 
             app.UseAuthorization();
 

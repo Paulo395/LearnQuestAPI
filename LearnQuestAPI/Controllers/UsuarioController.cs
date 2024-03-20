@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using LearnQuestAPI.Models;
 using LearnQuestAPI.Repository.Interface;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace LearnQuestAPI.Controllers
 {
@@ -10,9 +14,11 @@ namespace LearnQuestAPI.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        private readonly IConfiguration _config;
+        public UsuarioController(IUsuarioRepository usuarioRepository, IConfiguration config)
         {
             _usuarioRepository = usuarioRepository;
+            _config = config;
         }
 
         [HttpGet]
@@ -50,5 +56,18 @@ namespace LearnQuestAPI.Controllers
             bool apagar = await _usuarioRepository.ApagarUsuario(id);
             return Ok(apagar);
         }
+
+        [HttpPost("login")]
+
+        public async Task<IActionResult> Login([FromBody] LoginModel login)
+        {
+            var usuario = await _usuarioRepository.BuscarPorEmailSenha(login.Email, login.Senha);
+
+            if (usuario == null)
+                return Unauthorized();
+
+            return Ok(usuario);
+        }
+
     }
 }
