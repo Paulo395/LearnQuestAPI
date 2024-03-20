@@ -24,7 +24,7 @@ namespace LearnQuestAPI.Repository
         {
             Usuario usuarioPorId = await BuscarPorId(id);
 
-            if (usuarioPorId != null)
+            if (usuarioPorId == null)
             {
                 throw new Exception("Usuario com o Id " + id + " não encontrado!");
             }
@@ -39,7 +39,7 @@ namespace LearnQuestAPI.Repository
         {
             Usuario usuarioPorId = await BuscarPorId(id);
 
-            if (usuarioPorId != null)
+            if (usuarioPorId == null)
             {
                 throw new Exception("Usuario com o Id " + id + " não encontrado!");
             }
