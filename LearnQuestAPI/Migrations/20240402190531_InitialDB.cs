@@ -16,7 +16,8 @@ namespace LearnQuestAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    Senha = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Tipo = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

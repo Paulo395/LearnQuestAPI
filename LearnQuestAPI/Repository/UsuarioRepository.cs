@@ -1,5 +1,6 @@
 ﻿using LearnQuestAPI.Data;
 using LearnQuestAPI.Models;
+using LearnQuestAPI.Models.Enum;
 using LearnQuestAPI.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,9 +64,14 @@ namespace LearnQuestAPI.Repository
             return await _dbContext.Usuarios.ToListAsync();
         }
 
-        public async Task<Usuario> BuscarPorEmailSenha(string email, string senha)
+        public async Task<Usuario> BuscarCredenciais(string email, string senha)
         {
-            return await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
+            // Busca o usuário com base no email e senha fornecidos
+            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
+
+            // Retorna o usuário encontrado ou null se não for encontrado
+            return usuario;
         }
+
     }
 }

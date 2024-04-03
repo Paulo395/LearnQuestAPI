@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using LearnQuestAPI.Models.Enum;
 
 namespace LearnQuestAPI.Controllers
 {
@@ -58,16 +59,32 @@ namespace LearnQuestAPI.Controllers
         }
 
         [HttpPost("login")]
-
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
-            var usuario = await _usuarioRepository.BuscarPorEmailSenha(login.Email, login.Senha);
-
+            var usuario = await _usuarioRepository.BuscarCredenciais(login.Email, login.Senha);
             if (usuario == null)
                 return Unauthorized();
 
-            return Ok(usuario);
+            // Determine o tipo de usuário com base nas suas regras de negócio
+            var tipoUsuario = DetermineTipoUsuario(usuario);
+
+            // Retorne o tipo de usuário junto com a resposta
+            return Ok(new { tipoUsuario = tipoUsuario });
         }
+
+        private string DetermineTipoUsuario(Usuario usuario)
+        {
+            switch (usuario.Tipo)
+            {
+                case TipoUsuario.Admin:
+                    return "Admin";
+                case TipoUsuario.Aluno:
+                    return "Aluno";
+                default:
+                    return "Desconhecido";
+            }
+        }
+
 
     }
 }

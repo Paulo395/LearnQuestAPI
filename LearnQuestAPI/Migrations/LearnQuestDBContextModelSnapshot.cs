@@ -44,6 +44,9 @@ namespace LearnQuestAPI.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");

@@ -1,4 +1,5 @@
 ﻿using LearnQuestAPI.Models;
+using LearnQuestAPI.Models.Enum;
 
 namespace LearnQuestAPI.Repository.Interface
 {
@@ -9,6 +10,6 @@ namespace LearnQuestAPI.Repository.Interface
         Task<Usuario> AdicionarUsuario(Usuario usuario);
         Task<Usuario> AtualizarUsuario(Usuario usuario, int id);
         Task<bool> ApagarUsuario(int id);
-        Task<Usuario> BuscarPorEmailSenha(string email, string senha);
+        Task<Usuario> BuscarCredenciais(string email, string senha);
     }
 }
