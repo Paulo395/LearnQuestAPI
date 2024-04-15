@@ -1,6 +1,5 @@
 ﻿using LearnQuestAPI.Data;
 using LearnQuestAPI.Models;
-using LearnQuestAPI.Models.Enum;
 using LearnQuestAPI.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 

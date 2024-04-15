@@ -10,6 +10,7 @@ namespace LearnQuestAPI.Models
         public string Senha { get; set; }
         public TipoUsuario Tipo {  get; set; }
 
+        //A Implementar, classe Service?
         private string DetermineTipoUsuario(Usuario usuario)
         {
             switch (usuario.Tipo)
