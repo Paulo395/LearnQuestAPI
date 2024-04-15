@@ -12,7 +12,7 @@ namespace LearnQuestAPI.Data
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Mensagem> Mensagems { get; set; }
+        public DbSet<Mensagem> Mensagens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -27,6 +27,7 @@ namespace LearnQuestAPI
 
             //Injeção de Dependencia
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
 
             var app = builder.Build();
 

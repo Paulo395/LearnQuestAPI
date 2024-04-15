@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnQuestAPI.Migrations
 {
     [DbContext(typeof(LearnQuestDBContext))]
-    [Migration("20240415163615_InitialDB")]
+    [Migration("20240415173945_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace LearnQuestAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mensagems");
+                    b.ToTable("Mensagens");
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>

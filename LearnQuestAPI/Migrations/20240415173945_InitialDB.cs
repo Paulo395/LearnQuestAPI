@@ -9,7 +9,7 @@ namespace LearnQuestAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Mensagems",
+                name: "Mensagens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -18,7 +18,7 @@ namespace LearnQuestAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mensagems", x => x.Id);
+                    table.PrimaryKey("PK_Mensagens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,7 +41,7 @@ namespace LearnQuestAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Mensagems");
+                name: "Mensagens");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

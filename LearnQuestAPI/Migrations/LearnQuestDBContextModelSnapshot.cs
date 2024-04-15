@@ -36,7 +36,7 @@ namespace LearnQuestAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mensagems");
+                    b.ToTable("Mensagens");
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>
