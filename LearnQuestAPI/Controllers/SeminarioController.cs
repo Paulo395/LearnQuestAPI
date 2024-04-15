@@ -47,22 +47,11 @@ namespace LearnQuestAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> AtualizarSeminario(int id, Seminario seminario)
+        public async Task<ActionResult<Seminario>> AtualizarSeminario([FromBody] Seminario seminario, int id)
         {
-            if (id != seminario.Id)
-            {
-                return BadRequest("IDs não correspondem");
-            }
-
-            try
-            {
-                await _seminarioRepository.AtualizarSeminario(id, seminario);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Erro ao atualizar seminário: {ex.Message}");
-            }
+            seminario.Id = id;
+            Seminario seminarioAtualizado = await _seminarioRepository.AtualizarSeminario(seminario, id);
+            return Ok(seminarioAtualizado);
         }
 
         [HttpDelete("{id}")]

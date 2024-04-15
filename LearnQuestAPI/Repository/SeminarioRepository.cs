@@ -30,10 +30,23 @@ namespace LearnQuestAPI.Repository
             return seminario;
         }
 
-        public async Task AtualizarSeminario(int id, Seminario seminario)
+        public async Task<Seminario> AtualizarSeminario(Seminario seminario, int id)
         {
-            _dbContext.Entry(seminario).State = EntityState.Modified;
+            Seminario seminarioPorId = await BuscarPorId(id);
+
+            if (seminarioPorId == null)
+            {
+                throw new Exception("Seminario com o Id " + id + " não encontrado!");
+            }
+
+            seminarioPorId.Titulo = seminario.Titulo;
+            seminarioPorId.Descricao = seminario.Descricao;
+            seminarioPorId.LinkVideo = seminario.LinkVideo;
+
+            _dbContext.Update(seminarioPorId);
             await _dbContext.SaveChangesAsync();
+
+            return seminarioPorId;
         }
 
         public async Task ApagarSeminario(int id)
