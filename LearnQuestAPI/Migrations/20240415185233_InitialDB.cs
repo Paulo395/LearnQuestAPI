@@ -22,6 +22,21 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Seminarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titulo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    LinkVideo = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seminarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -42,6 +57,9 @@ namespace LearnQuestAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Mensagens");
+
+            migrationBuilder.DropTable(
+                name: "Seminarios");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

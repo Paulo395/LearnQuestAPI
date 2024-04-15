@@ -13,11 +13,13 @@ namespace LearnQuestAPI.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Mensagem> Mensagens { get; set; }
+        public DbSet<Seminario> Seminarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioMap());
             modelBuilder.ApplyConfiguration(new MensagemMap());
+            modelBuilder.ApplyConfiguration(new SeminarioMap());
             base.OnModelCreating(modelBuilder);
         }
     }

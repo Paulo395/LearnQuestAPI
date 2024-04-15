@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnQuestAPI.Migrations
 {
     [DbContext(typeof(LearnQuestDBContext))]
-    [Migration("20240415173945_InitialDB")]
+    [Migration("20240415185233_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,34 @@ namespace LearnQuestAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Mensagens");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Seminario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("LinkVideo")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Seminarios");
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>

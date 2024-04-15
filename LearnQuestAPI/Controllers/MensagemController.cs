@@ -11,9 +11,9 @@ namespace LearnQuestAPI.Controllers
     {
         private readonly IMensagemRepository _mensagemRepository;
 
-        public MensagemController(IMensagemRepository mensagemService)
+        public MensagemController(IMensagemRepository mensagemRepository)
         {
-            _mensagemRepository = mensagemService;
+            _mensagemRepository = mensagemRepository;
         }
 
         [HttpGet]
