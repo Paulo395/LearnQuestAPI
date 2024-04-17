@@ -22,6 +22,19 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Perguntas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Perguntas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seminarios",
                 columns: table => new
                 {
@@ -51,6 +64,32 @@ namespace LearnQuestAPI.Migrations
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Respostas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Correta = table.Column<bool>(type: "bit", nullable: false),
+                    PerguntaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Respostas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Respostas_Perguntas_PerguntaId",
+                        column: x => x.PerguntaId,
+                        principalTable: "Perguntas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Respostas_PerguntaId",
+                table: "Respostas",
+                column: "PerguntaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -59,10 +98,16 @@ namespace LearnQuestAPI.Migrations
                 name: "Mensagens");
 
             migrationBuilder.DropTable(
+                name: "Respostas");
+
+            migrationBuilder.DropTable(
                 name: "Seminarios");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Perguntas");
         }
     }
 }

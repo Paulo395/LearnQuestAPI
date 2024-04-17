@@ -39,6 +39,48 @@ namespace LearnQuestAPI.Migrations
                     b.ToTable("Mensagens");
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Texto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Perguntas");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Resposta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Correta")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PerguntaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Texto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerguntaId");
+
+                    b.ToTable("Respostas");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Seminario", b =>
                 {
                     b.Property<int>("Id")
@@ -96,6 +138,22 @@ namespace LearnQuestAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Resposta", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Pergunta", "Pergunta")
+                        .WithMany("Respostas")
+                        .HasForeignKey("PerguntaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pergunta");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
+                {
+                    b.Navigation("Respostas");
                 });
 #pragma warning restore 612, 618
         }
