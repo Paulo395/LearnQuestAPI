@@ -14,6 +14,14 @@ namespace LearnQuestAPI.Repository
             _dbContext = dbContext;
         }
 
+        public async Task<Pergunta> CriarPergunta(Pergunta pergunta)
+        {
+            await _dbContext.Perguntas.AddAsync(pergunta);
+            _dbContext.SaveChanges();
+
+            return pergunta;// async resolve os probelmas de return
+        }
+
         public async Task<bool> ApagarPergunta(int id)
         {
             Pergunta perguntaPorId = await BuscarPorId(id);
@@ -29,38 +37,19 @@ namespace LearnQuestAPI.Repository
             return true;
         }
 
-        public async Task<Pergunta> AtualizarPergunta(Pergunta pergunta, int id)
+        public async Task<Pergunta> AtualizarPergunta(Pergunta usuario, int id)
         {
             Pergunta perguntaPorId = await BuscarPorId(id);
 
             if (perguntaPorId == null)
             {
-                throw new Exception("Pergunta com o Id " + id + " não encontrado!");
+                throw new Exception("Usuario com o Id " + id + " não encontrado!");
             }
 
-            perguntaPorId.Texto = pergunta.Texto;
+            perguntaPorId.Titulo = usuario.Titulo;
+            perguntaPorId.Respostas = usuario.Respostas;
 
-            // Atualizar respostas existentes e lidar com novas respostas/remoções
-            foreach (var resposta in pergunta.Respostas)
-            {
-                var respostaExistente = perguntaPorId.Respostas.FirstOrDefault(r => r.Id == resposta.Id);
-
-                if (respostaExistente != null)
-                {
-                    // Atualização da resposta existente
-                    respostaExistente.Texto = resposta.Texto;
-                }
-                else
-                {
-                    // Adição de nova resposta
-                    perguntaPorId.Respostas.Add(resposta);
-                }
-            }
-
-            // Remover respostas que não estão mais presentes
-            perguntaPorId.Respostas.RemoveAll(r => !pergunta.Respostas.Any(nr => nr.Id == r.Id));
-
-            _dbContext.Perguntas.Update(perguntaPorId);
+            _dbContext.Update(perguntaPorId);
             await _dbContext.SaveChangesAsync();
 
             return perguntaPorId;
@@ -71,15 +60,7 @@ namespace LearnQuestAPI.Repository
             return await _dbContext.Perguntas.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Pergunta> CriarPergunta(Pergunta pergunta)
-        {
-            await _dbContext.Perguntas.AddAsync(pergunta);
-            _dbContext.SaveChanges();
-
-            return pergunta;
-        }
-
-        public async Task<IEnumerable<Pergunta>> ListarTodasPerguntas()
+        public async Task<List<Pergunta>> ListarTodasPerguntas()
         {
             return await _dbContext.Perguntas.ToListAsync();
         }

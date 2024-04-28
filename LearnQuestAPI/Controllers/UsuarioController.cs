@@ -55,7 +55,7 @@ namespace LearnQuestAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel login)
+        public async Task<IActionResult> Login([FromBody] Usuario login)
         {
             var usuario = await _usuarioRepository.BuscarCredenciais(login.Email, login.Senha);
             if (usuario == null)

@@ -25,10 +25,13 @@ namespace LearnQuestAPI
                     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
             );
 
+
             //Injeção de Dependencia
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
             builder.Services.AddScoped<ISeminarioRepository, SeminarioRepository>();
+            builder.Services.AddScoped<IPerguntaRepository, PerguntaRepository>();
+
 
             var app = builder.Build();
 

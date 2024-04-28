@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -27,7 +28,7 @@ namespace LearnQuestAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Titulo = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +59,9 @@ namespace LearnQuestAPI.Migrations
                     Nome = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Tipo = table.Column<int>(type: "int", nullable: false)
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    DataRegistro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -66,20 +69,20 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Respostas",
+                name: "Resposta",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Alternativa = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Correta = table.Column<bool>(type: "bit", nullable: false),
                     PerguntaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Respostas", x => x.Id);
+                    table.PrimaryKey("PK_Resposta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Respostas_Perguntas_PerguntaId",
+                        name: "FK_Resposta_Perguntas_PerguntaId",
                         column: x => x.PerguntaId,
                         principalTable: "Perguntas",
                         principalColumn: "Id",
@@ -87,8 +90,8 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Respostas_PerguntaId",
-                table: "Respostas",
+                name: "IX_Resposta_PerguntaId",
+                table: "Resposta",
                 column: "PerguntaId");
         }
 
@@ -98,7 +101,7 @@ namespace LearnQuestAPI.Migrations
                 name: "Mensagens");
 
             migrationBuilder.DropTable(
-                name: "Respostas");
+                name: "Resposta");
 
             migrationBuilder.DropTable(
                 name: "Seminarios");

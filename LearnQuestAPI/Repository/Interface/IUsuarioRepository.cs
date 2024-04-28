@@ -9,7 +9,7 @@ namespace LearnQuestAPI.Repository.Interface
         Task<Usuario> BuscarPorId(int id);
         Task<Usuario> AdicionarUsuario(Usuario usuario);
         Task<Usuario> AtualizarUsuario(Usuario usuario, int id);
-        Task<bool> ApagarUsuario(int id);
         Task<Usuario> BuscarCredenciais(string email, string senha);
+        Task<bool> ApagarUsuario(int id);
     }
 }
