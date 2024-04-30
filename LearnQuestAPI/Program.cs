@@ -31,7 +31,8 @@ namespace LearnQuestAPI
             builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
             builder.Services.AddScoped<ISeminarioRepository, SeminarioRepository>();
             builder.Services.AddScoped<IPerguntaRepository, PerguntaRepository>();
-
+            builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
+            builder.Services.AddScoped<ITurmaRepository, TurmaRepository>();
 
             var app = builder.Build();
 
@@ -53,7 +54,6 @@ namespace LearnQuestAPI
             });
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

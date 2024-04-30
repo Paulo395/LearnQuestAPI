@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnQuestAPI.Migrations
 {
     [DbContext(typeof(LearnQuestDBContext))]
-    [Migration("20240428231134_InitialDB")]
+    [Migration("20240430031141_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,34 @@ namespace LearnQuestAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal>("Nota")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(5,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("TurmaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TurmaId");
+
+                    b.ToTable("Disciplinas");
+                });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Mensagem", b =>
                 {
@@ -50,12 +78,17 @@ namespace LearnQuestAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("DisciplinaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DisciplinaId");
 
                     b.ToTable("Perguntas");
                 });
@@ -113,6 +146,24 @@ namespace LearnQuestAPI.Migrations
                     b.ToTable("Seminarios");
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Turma", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Turmas");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -154,6 +205,24 @@ namespace LearnQuestAPI.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Turma", null)
+                        .WithMany("Disciplinas")
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Disciplina", null)
+                        .WithMany("Perguntas")
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Resposta", b =>
                 {
                     b.HasOne("LearnQuestAPI.Models.Pergunta", null)
@@ -163,9 +232,19 @@ namespace LearnQuestAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
+                {
+                    b.Navigation("Perguntas");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
                 {
                     b.Navigation("Respostas");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Turma", b =>
+                {
+                    b.Navigation("Disciplinas");
                 });
 #pragma warning restore 612, 618
         }
