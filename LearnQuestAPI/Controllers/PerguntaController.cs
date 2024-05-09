@@ -17,7 +17,7 @@ namespace LearnQuestAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Pergunta>>> ListarTodosUsuarios()
+        public async Task<ActionResult<List<Pergunta>>> ListarTodasPerguntas()
         {
             List<Pergunta> pergunta = await _perguntaRepository.ListarTodasPerguntas();
             return Ok(pergunta);

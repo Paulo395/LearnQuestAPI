@@ -18,7 +18,7 @@ namespace LearnQuestAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Disciplina>>> ListarTodasDisciplinas()
         {
-            List<Disciplina> disciplinas = await _disciplinaRepository.ListarTodasDisciplinas();
+            List<Disciplina> disciplinas = await _disciplinaRepository.ListarTodasDisciplinasComPerguntas();
             return Ok(disciplinas);
         }
 

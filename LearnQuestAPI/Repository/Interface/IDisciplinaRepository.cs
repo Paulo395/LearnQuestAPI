@@ -9,5 +9,6 @@ namespace LearnQuestAPI.Repository.Interface
         Task<Disciplina> AdicionarDisciplina(Disciplina disciplina);
         Task<Disciplina> AtualizarDisciplina(Disciplina disciplina, int id);
         Task<bool> ApagarDisciplina(int id);
+        Task<List<Disciplina>> ListarTodasDisciplinasComPerguntas();
     }
 }

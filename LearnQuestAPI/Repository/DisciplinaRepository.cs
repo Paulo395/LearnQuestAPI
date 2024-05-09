@@ -63,5 +63,12 @@ namespace LearnQuestAPI.Repository
         {
             return await _dbContext.Disciplinas.ToListAsync();
         }
+        public async Task<List<Disciplina>> ListarTodasDisciplinasComPerguntas()
+        {
+            return await _dbContext.Disciplinas
+                .Include(d => d.Perguntas)               // Inclui as perguntas associadas a cada disciplina
+                    .ThenInclude(p => p.Respostas)       // Inclui as respostas associadas a cada pergunta
+                .ToListAsync();
+        }
     }
 }
