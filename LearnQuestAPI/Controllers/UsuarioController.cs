@@ -64,8 +64,8 @@ namespace LearnQuestAPI.Controllers
             // Determine o tipo de usuário com base nas suas regras de negócio
             var tipoUsuario = DetermineTipoUsuario(usuario);
 
-            // Retorne o tipo de usuário junto com a resposta
-            return Ok(new { tipoUsuario = tipoUsuario });
+            // Retorne o tipo de usuário e o ID do usuário junto com a resposta
+            return Ok(new { tipoUsuario = tipoUsuario, userId = usuario.Id });
         }
 
         private string DetermineTipoUsuario(Usuario usuario)
@@ -80,7 +80,6 @@ namespace LearnQuestAPI.Controllers
                     return "Desconhecido";
             }
         }
-
 
     }
 }
