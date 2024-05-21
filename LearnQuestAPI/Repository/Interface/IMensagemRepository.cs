@@ -9,5 +9,6 @@ namespace LearnQuestAPI.Repository.Interface
         Task<Mensagem> CriarMensagem(Mensagem mensagem);
         Task AtualizarMensagem(int id, Mensagem mensagem);
         Task ApagarMensagem(int id);
+        Task<IEnumerable<Mensagem>> BuscarMensagensPorTurmaId(int turmaId);
     }
 }

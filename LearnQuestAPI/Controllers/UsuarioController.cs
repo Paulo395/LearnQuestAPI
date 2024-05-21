@@ -74,6 +74,8 @@ namespace LearnQuestAPI.Controllers
             {
                 case TipoUsuario.Admin:
                     return "Admin";
+                case TipoUsuario.Professor:
+                    return "Professor";
                 case TipoUsuario.Aluno:
                     return "Aluno";
                 default:

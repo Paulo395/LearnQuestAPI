@@ -47,6 +47,7 @@ namespace LearnQuestAPI.Repository
             usuarioPorId.Nome = usuario.Nome;
             usuarioPorId.Email = usuario.Email;
             usuarioPorId.Senha = usuario.Senha;
+            usuarioPorId.TurmaId = usuario.TurmaId;
 
             _dbContext.Update(usuarioPorId);
             await _dbContext.SaveChangesAsync();

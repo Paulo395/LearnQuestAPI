@@ -58,5 +58,10 @@ namespace LearnQuestAPI.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Seminario>> ObterSeminariosPorTurmaId(int turmaId)
+        {
+            return await _dbContext.Seminarios.Where(s => s.TurmaId == turmaId).ToListAsync();
+        }
     }
 }

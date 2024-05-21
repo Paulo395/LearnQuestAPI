@@ -51,5 +51,10 @@ namespace LearnQuestAPI.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Mensagem>> BuscarMensagensPorTurmaId(int turmaId)
+        {
+            return await _dbContext.Mensagens.Where(m => m.TurmaId == turmaId).ToListAsync();
+        }
     }
 }

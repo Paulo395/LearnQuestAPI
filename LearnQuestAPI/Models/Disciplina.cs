@@ -8,8 +8,6 @@ namespace LearnQuestAPI.Models
         public string Nome { get; set; }
         public List<Pergunta> Perguntas { get; set; }
         [JsonIgnore]
-        public double Nota { get; set; }
-        [JsonIgnore]
         public int TurmaId { get; set; }
     }
 }

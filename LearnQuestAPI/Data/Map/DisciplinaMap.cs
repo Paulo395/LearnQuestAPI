@@ -11,8 +11,6 @@ namespace LearnQuestAPI.Data.Map
             builder.HasKey(d => d.Id);
             builder.Property(d => d.Nome).IsRequired().HasMaxLength(255);
             builder.HasMany(d => d.Perguntas).WithOne().HasForeignKey(d => d.DisciplinaId);
-            builder.Property(d => d.Nota).HasColumnType("decimal(5, 2)").HasDefaultValue(0.0);
-
         }
     }
 }

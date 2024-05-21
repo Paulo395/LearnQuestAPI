@@ -9,5 +9,6 @@ namespace LearnQuestAPI.Repository.Interface
         Task<Seminario> CriarSeminario(Seminario seminario);
         Task<Seminario> AtualizarSeminario(Seminario seminariom, int id);
         Task ApagarSeminario(int id);
+        Task<IEnumerable<Seminario>> ObterSeminariosPorTurmaId(int turmaId);
     }
 }

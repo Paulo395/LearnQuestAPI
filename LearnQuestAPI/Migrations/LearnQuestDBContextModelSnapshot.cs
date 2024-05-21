@@ -35,11 +35,6 @@ namespace LearnQuestAPI.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<decimal>("Nota")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(5,2)")
-                        .HasDefaultValue(0m);
-
                     b.Property<int>("TurmaId")
                         .HasColumnType("int");
 
@@ -63,7 +58,12 @@ namespace LearnQuestAPI.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int?>("TurmaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TurmaId");
 
                     b.ToTable("Mensagens");
                 });
@@ -139,7 +139,12 @@ namespace LearnQuestAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("TurmaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TurmaId");
 
                     b.ToTable("Seminarios");
                 });
@@ -198,7 +203,12 @@ namespace LearnQuestAPI.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TurmaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TurmaId");
 
                     b.ToTable("Usuarios");
                 });
@@ -207,9 +217,14 @@ namespace LearnQuestAPI.Migrations
                 {
                     b.HasOne("LearnQuestAPI.Models.Turma", null)
                         .WithMany("Disciplinas")
-                        .HasForeignKey("TurmaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TurmaId");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Mensagem", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Turma", null)
+                        .WithMany("Mensagens")
+                        .HasForeignKey("TurmaId");
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
@@ -230,6 +245,20 @@ namespace LearnQuestAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Seminario", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Turma", null)
+                        .WithMany("Seminarios")
+                        .HasForeignKey("TurmaId");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Turma", null)
+                        .WithMany("Alunos")
+                        .HasForeignKey("TurmaId");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
                 {
                     b.Navigation("Perguntas");
@@ -242,7 +271,13 @@ namespace LearnQuestAPI.Migrations
 
             modelBuilder.Entity("LearnQuestAPI.Models.Turma", b =>
                 {
+                    b.Navigation("Alunos");
+
                     b.Navigation("Disciplinas");
+
+                    b.Navigation("Mensagens");
+
+                    b.Navigation("Seminarios");
                 });
 #pragma warning restore 612, 618
         }

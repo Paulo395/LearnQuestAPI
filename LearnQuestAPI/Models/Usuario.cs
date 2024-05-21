@@ -11,6 +11,7 @@ namespace LearnQuestAPI.Models
         public string Senha { get; set; }
         public TipoUsuario Tipo { get; set; }
         public DateTime DataRegistro { get; set; }
+        public int? TurmaId { get; set; }
         public bool Ativo { get; set; }
     }
 

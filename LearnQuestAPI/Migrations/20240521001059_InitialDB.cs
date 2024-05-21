@@ -10,34 +10,6 @@ namespace LearnQuestAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Mensagens",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Conteudo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mensagens", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Seminarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LinkVideo = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Seminarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Turmas",
                 columns: table => new
                 {
@@ -51,6 +23,65 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Disciplinas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    TurmaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Disciplinas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Disciplinas_Turmas_TurmaId",
+                        column: x => x.TurmaId,
+                        principalTable: "Turmas",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mensagens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Conteudo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    TurmaId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mensagens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Mensagens_Turmas_TurmaId",
+                        column: x => x.TurmaId,
+                        principalTable: "Turmas",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seminarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titulo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    LinkVideo = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    TurmaId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seminarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seminarios_Turmas_TurmaId",
+                        column: x => x.TurmaId,
+                        principalTable: "Turmas",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -61,32 +92,17 @@ namespace LearnQuestAPI.Migrations
                     Senha = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Tipo = table.Column<int>(type: "int", nullable: false),
                     DataRegistro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    TurmaId = table.Column<int>(type: "int", nullable: true),
                     Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Disciplinas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Nota = table.Column<decimal>(type: "decimal(5,2)", nullable: false, defaultValue: 0m),
-                    TurmaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Disciplinas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Disciplinas_Turmas_TurmaId",
+                        name: "FK_Usuarios_Turmas_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turmas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -136,6 +152,11 @@ namespace LearnQuestAPI.Migrations
                 column: "TurmaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Mensagens_TurmaId",
+                table: "Mensagens",
+                column: "TurmaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Perguntas_DisciplinaId",
                 table: "Perguntas",
                 column: "DisciplinaId");
@@ -144,6 +165,16 @@ namespace LearnQuestAPI.Migrations
                 name: "IX_Resposta_PerguntaId",
                 table: "Resposta",
                 column: "PerguntaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seminarios_TurmaId",
+                table: "Seminarios",
+                column: "TurmaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_TurmaId",
+                table: "Usuarios",
+                column: "TurmaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

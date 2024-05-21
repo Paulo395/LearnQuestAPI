@@ -6,7 +6,9 @@ namespace LearnQuestAPI.Models.Enum
     {
         [Description("Aluno")]
         Aluno = 0,
+        [Description("Professor")]
+        Professor = 1,
         [Description("Administrador")]
-        Admin = 1
+        Admin = 2
     }
 }

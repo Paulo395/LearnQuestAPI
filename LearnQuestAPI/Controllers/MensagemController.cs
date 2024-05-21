@@ -2,6 +2,7 @@
 using LearnQuestAPI.Repository;
 using LearnQuestAPI.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearnQuestAPI.Controllers
 {
@@ -55,5 +56,15 @@ namespace LearnQuestAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("turma/{turmaId}")]
+        public async Task<ActionResult<IEnumerable<Mensagem>>> BuscarMensagensPorTurma(int turmaId)
+        {
+            var mensagens = await _mensagemRepository.BuscarMensagensPorTurmaId(turmaId);
+            if (mensagens == null || !mensagens.Any())
+            {
+                return NotFound();
+            }
+            return Ok(mensagens);
+        }
     }
 }

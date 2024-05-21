@@ -15,6 +15,7 @@ namespace LearnQuestAPI.Controllers
         }
 
         [HttpGet]
+        [Route("listar-todos")] //Solução erro API, dois http Get
         public async Task<ActionResult<IEnumerable<Seminario>>> ListarTodosSeminario()
         {
             var seminarios = await _seminarioRepository.ListarTodosSeminario();
@@ -66,6 +67,13 @@ namespace LearnQuestAPI.Controllers
             {
                 return BadRequest($"Erro ao apagar seminário: {ex.Message}");
             }
+        }
+        //O que era aqui mesmo?
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Seminario>>> ObterSeminariosPorTurmaId([FromQuery] int turmaId)
+        {
+            var seminarios = await _seminarioRepository.ObterSeminariosPorTurmaId(turmaId);
+            return Ok(seminarios);
         }
     }
 }
