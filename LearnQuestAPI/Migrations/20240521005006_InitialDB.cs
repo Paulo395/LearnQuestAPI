@@ -126,6 +126,32 @@ namespace LearnQuestAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AlunoId = table.Column<int>(type: "int", nullable: false),
+                    DisciplinaId = table.Column<int>(type: "int", nullable: false),
+                    Pontuacao = table.Column<double>(type: "float", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notas_Disciplinas_DisciplinaId",
+                        column: x => x.DisciplinaId,
+                        principalTable: "Disciplinas",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notas_Usuarios_AlunoId",
+                        column: x => x.AlunoId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Resposta",
                 columns: table => new
                 {
@@ -157,6 +183,16 @@ namespace LearnQuestAPI.Migrations
                 column: "TurmaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notas_AlunoId",
+                table: "Notas",
+                column: "AlunoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notas_DisciplinaId",
+                table: "Notas",
+                column: "DisciplinaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Perguntas_DisciplinaId",
                 table: "Perguntas",
                 column: "DisciplinaId");
@@ -181,6 +217,9 @@ namespace LearnQuestAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Mensagens");
+
+            migrationBuilder.DropTable(
+                name: "Notas");
 
             migrationBuilder.DropTable(
                 name: "Resposta");

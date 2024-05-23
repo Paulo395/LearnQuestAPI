@@ -68,6 +68,37 @@ namespace LearnQuestAPI.Migrations
                     b.ToTable("Mensagens");
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Nota", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AlunoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Data")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("DisciplinaId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Pontuacao")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlunoId");
+
+                    b.HasIndex("DisciplinaId");
+
+                    b.ToTable("Notas");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
                 {
                     b.Property<int>("Id")
@@ -227,6 +258,17 @@ namespace LearnQuestAPI.Migrations
                         .HasForeignKey("TurmaId");
                 });
 
+            modelBuilder.Entity("LearnQuestAPI.Models.Nota", b =>
+                {
+                    b.HasOne("LearnQuestAPI.Models.Usuario", null)
+                        .WithMany("Notas")
+                        .HasForeignKey("AlunoId");
+
+                    b.HasOne("LearnQuestAPI.Models.Disciplina", null)
+                        .WithMany("Notas")
+                        .HasForeignKey("DisciplinaId");
+                });
+
             modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
                 {
                     b.HasOne("LearnQuestAPI.Models.Disciplina", null)
@@ -261,6 +303,8 @@ namespace LearnQuestAPI.Migrations
 
             modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
                 {
+                    b.Navigation("Notas");
+
                     b.Navigation("Perguntas");
                 });
 
@@ -278,6 +322,11 @@ namespace LearnQuestAPI.Migrations
                     b.Navigation("Mensagens");
 
                     b.Navigation("Seminarios");
+                });
+
+            modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>
+                {
+                    b.Navigation("Notas");
                 });
 #pragma warning restore 612, 618
         }

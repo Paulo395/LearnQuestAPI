@@ -14,6 +14,7 @@ namespace LearnQuestAPI.Data.Map
             builder.Property(x => x.Senha).IsRequired().HasMaxLength(150);
             builder.Property(x => x.Tipo).IsRequired();
             builder.Property(x => x.DataRegistro).IsRequired().HasDefaultValueSql("GETDATE()");
+            builder.HasMany(t => t.Notas).WithOne().HasForeignKey(t => t.AlunoId).IsRequired(false);
             builder.Property(x => x.Ativo).HasDefaultValue(true);
         }
     }

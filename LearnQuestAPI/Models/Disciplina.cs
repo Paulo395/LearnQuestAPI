@@ -9,5 +9,6 @@ namespace LearnQuestAPI.Models
         public List<Pergunta> Perguntas { get; set; }
         [JsonIgnore]
         public int TurmaId { get; set; }
+        public List<Nota> Notas { get; set; } = new List<Nota>();
     }
 }

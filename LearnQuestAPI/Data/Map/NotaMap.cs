@@ -8,7 +8,9 @@ namespace LearnQuestAPI.Data.Map
     {
         public void Configure(EntityTypeBuilder<Nota> builder)
         {
-
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Pontuacao).IsRequired();
+            builder.Property(x => x.Data).IsRequired().HasDefaultValueSql("GETDATE()");
         }
     }
 }

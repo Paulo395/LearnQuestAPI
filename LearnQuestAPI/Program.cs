@@ -33,6 +33,7 @@ namespace LearnQuestAPI
             builder.Services.AddScoped<IPerguntaRepository, PerguntaRepository>();
             builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
             builder.Services.AddScoped<ITurmaRepository, TurmaRepository>();
+            builder.Services.AddScoped<INotaRepository, NotaRepository>();
 
             var app = builder.Build();
 

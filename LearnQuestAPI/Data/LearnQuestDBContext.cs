@@ -17,6 +17,7 @@ namespace LearnQuestAPI.Data
         public DbSet<Pergunta> Perguntas {  get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Turma> Turmas { get; set; }
+        public DbSet<Nota> Notas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioMap());
@@ -25,6 +26,7 @@ namespace LearnQuestAPI.Data
             modelBuilder.ApplyConfiguration(new PerguntaMap());
             modelBuilder.ApplyConfiguration(new DisciplinaMap());
             modelBuilder.ApplyConfiguration(new TurmaMap());
+            modelBuilder.ApplyConfiguration(new NotaMap());
 
             base.OnModelCreating(modelBuilder);
         }

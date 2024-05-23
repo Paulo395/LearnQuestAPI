@@ -12,7 +12,7 @@ namespace LearnQuestAPI.Models
         public TipoUsuario Tipo { get; set; }
         public DateTime DataRegistro { get; set; }
         public int? TurmaId { get; set; }
+        public List<Nota> Notas { get; set; } = new List<Nota>();
         public bool Ativo { get; set; }
     }
-
 }
