@@ -11,10 +11,10 @@ namespace LearnQuestAPI.Data.Map
         {
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Nome).HasMaxLength(100).IsRequired();
-            builder.HasMany(t => t.Disciplinas).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false);
-            builder.HasMany(t => t.Alunos).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false);
-            builder.HasMany(t => t.Mensagens).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false);
-            builder.HasMany(t => t.Seminarios).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false);
+            builder.HasMany(t => t.Disciplinas).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(t => t.Alunos).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany(t => t.Mensagens).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(t => t.Seminarios).WithOne().HasForeignKey(t => t.TurmaId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

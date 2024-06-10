@@ -10,6 +10,7 @@ namespace LearnQuestAPI.Data.Map
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Conteudo).IsRequired().HasMaxLength(500);
+            builder.Property(x => x.DataRegistro).IsRequired().HasDefaultValueSql("GETDATE()");
         }
     }
 }

@@ -5,7 +5,6 @@
         public int Id { get; set; }
         public string Conteudo { get; set; }
         public int? TurmaId { get; set; }
-
-        //Tema
+        public DateTime DataRegistro { get; set; }
     }
 }

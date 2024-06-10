@@ -38,7 +38,8 @@ namespace LearnQuestAPI.Migrations
                         name: "FK_Disciplinas_Turmas_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turmas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +49,8 @@ namespace LearnQuestAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Conteudo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    TurmaId = table.Column<int>(type: "int", nullable: true)
+                    TurmaId = table.Column<int>(type: "int", nullable: true),
+                    DataRegistro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
@@ -57,7 +59,8 @@ namespace LearnQuestAPI.Migrations
                         name: "FK_Mensagens_Turmas_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turmas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +81,8 @@ namespace LearnQuestAPI.Migrations
                         name: "FK_Seminarios_Turmas_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turmas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +106,8 @@ namespace LearnQuestAPI.Migrations
                         name: "FK_Usuarios_Turmas_TurmaId",
                         column: x => x.TurmaId,
                         principalTable: "Turmas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,7 +148,8 @@ namespace LearnQuestAPI.Migrations
                         name: "FK_Notas_Disciplinas_DisciplinaId",
                         column: x => x.DisciplinaId,
                         principalTable: "Disciplinas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Notas_Usuarios_AlunoId",
                         column: x => x.AlunoId,

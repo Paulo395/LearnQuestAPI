@@ -58,6 +58,11 @@ namespace LearnQuestAPI.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<DateTime>("DataRegistro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<int?>("TurmaId")
                         .HasColumnType("int");
 
@@ -248,14 +253,16 @@ namespace LearnQuestAPI.Migrations
                 {
                     b.HasOne("LearnQuestAPI.Models.Turma", null)
                         .WithMany("Disciplinas")
-                        .HasForeignKey("TurmaId");
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Mensagem", b =>
                 {
                     b.HasOne("LearnQuestAPI.Models.Turma", null)
                         .WithMany("Mensagens")
-                        .HasForeignKey("TurmaId");
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Nota", b =>
@@ -266,7 +273,8 @@ namespace LearnQuestAPI.Migrations
 
                     b.HasOne("LearnQuestAPI.Models.Disciplina", null)
                         .WithMany("Notas")
-                        .HasForeignKey("DisciplinaId");
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Pergunta", b =>
@@ -291,14 +299,16 @@ namespace LearnQuestAPI.Migrations
                 {
                     b.HasOne("LearnQuestAPI.Models.Turma", null)
                         .WithMany("Seminarios")
-                        .HasForeignKey("TurmaId");
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Usuario", b =>
                 {
                     b.HasOne("LearnQuestAPI.Models.Turma", null)
                         .WithMany("Alunos")
-                        .HasForeignKey("TurmaId");
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Disciplina", b =>
