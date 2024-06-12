@@ -12,9 +12,10 @@ namespace LearnQuestAPI.Data.Map
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Titulo).IsRequired().HasMaxLength(255);
 
-            builder.HasMany(p => p.Respostas) // Indica que uma pergunta pode ter várias respostas
-                .WithOne() // Indica que cada resposta pertence a uma única pergunta
-                .HasForeignKey(r => r.PerguntaId);
+            builder.HasMany(p => p.Respostas)
+                .WithOne()
+                .HasForeignKey(r => r.PerguntaId)
+                .IsRequired(false).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -10,7 +10,8 @@ namespace LearnQuestAPI.Data.Map
         {
             builder.HasKey(d => d.Id);
             builder.Property(d => d.Nome).IsRequired().HasMaxLength(255);
-            builder.HasMany(d => d.Perguntas).WithOne().HasForeignKey(d => d.DisciplinaId);
+            builder.Property(d => d.Descricao).IsRequired().HasMaxLength(255);
+            builder.HasMany(d => d.Perguntas).WithOne().HasForeignKey(d => d.DisciplinaId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(t => t.Notas).WithOne().HasForeignKey(t => t.DisciplinaId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
         }
     }

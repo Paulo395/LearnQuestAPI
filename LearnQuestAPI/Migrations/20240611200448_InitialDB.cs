@@ -29,7 +29,8 @@ namespace LearnQuestAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    TurmaId = table.Column<int>(type: "int", nullable: false)
+                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    TurmaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,8 +137,8 @@ namespace LearnQuestAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AlunoId = table.Column<int>(type: "int", nullable: false),
-                    DisciplinaId = table.Column<int>(type: "int", nullable: false),
+                    AlunoId = table.Column<int>(type: "int", nullable: true),
+                    DisciplinaId = table.Column<int>(type: "int", nullable: true),
                     Pontuacao = table.Column<double>(type: "float", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },

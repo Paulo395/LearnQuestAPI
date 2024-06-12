@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnQuestAPI.Migrations
 {
     [DbContext(typeof(LearnQuestDBContext))]
-    [Migration("20240610044625_InitialDB")]
+    [Migration("20240611200448_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,12 +32,17 @@ namespace LearnQuestAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("TurmaId")
+                    b.Property<int?>("TurmaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -83,7 +88,7 @@ namespace LearnQuestAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AlunoId")
+                    b.Property<int?>("AlunoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Data")
@@ -91,7 +96,7 @@ namespace LearnQuestAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("DisciplinaId")
+                    b.Property<int?>("DisciplinaId")
                         .HasColumnType("int");
 
                     b.Property<double>("Pontuacao")
@@ -284,8 +289,7 @@ namespace LearnQuestAPI.Migrations
                     b.HasOne("LearnQuestAPI.Models.Disciplina", null)
                         .WithMany("Perguntas")
                         .HasForeignKey("DisciplinaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Resposta", b =>
@@ -293,8 +297,7 @@ namespace LearnQuestAPI.Migrations
                     b.HasOne("LearnQuestAPI.Models.Pergunta", null)
                         .WithMany("Respostas")
                         .HasForeignKey("PerguntaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnQuestAPI.Models.Seminario", b =>
